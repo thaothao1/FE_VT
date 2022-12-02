@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     async getItem() {
-      let response = await axios.get(`http://localhost:8000/api/api/detailProduct/${this.idDetail}`);
+      let response = await axios.get(`http://103.150.124.193:8000/api/api/detailProduct/${this.idDetail}`);
       this.DATA = response.data.data.data;
       this.DATA_FPT = response.data.data.product1;
       this.DATA_SHOPEE = response.data.data.product2;
