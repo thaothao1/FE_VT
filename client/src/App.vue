@@ -2,10 +2,14 @@
   <v-app id="inspire">
     <v-app-bar app class="navig-app">
       <v-toolbar-title class="title-app">Web Compass</v-toolbar-title>
-      <v-tabs>
-        <v-tab>Item One</v-tab>
-        <v-tab>Item Two</v-tab>
-        <v-tab>Item Three</v-tab>
+      <v-tabs   
+      v-model="selectedTab"
+      background-color="primary"
+      dark >
+        <v-tab v-for="item in SHOP"
+        :key="item.id">
+        {{ item.name}}
+      </v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
       <v-btn icon>
@@ -25,7 +29,7 @@
         :src="item.src"
       ></v-carousel-item>
     </v-carousel>
-    <index />
+    <index :selectedTab="selectedTab" />
     <v-main>
       <v-footer
         dark
@@ -68,6 +72,7 @@ import index from '@/components/index.vue'
   export default {
     data: () => ({ 
       drawer: null,
+      selectedTab: 0,
       icons: [
         'mdi-facebook',
         'mdi-twitter',
@@ -76,22 +81,30 @@ import index from '@/components/index.vue'
       ],
       items: [
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+            src: 'https://cdnmedia.baotintuc.vn/Upload/cVJiASFv9S8nriO7eNwA/files/2021/01/18-1/Lazada%20(2).png',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+            src: 'https://intphcm.com/data/upload/mau-banner-shopee.jpg',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+            src: 'https://genk.mediacdn.vn/139269124445442048/2022/4/28/photo-1-1651119706627901243837-1651129623433-16511296237011271681052.jpg',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+            src: 'https://cdn.tgdd.vn/Files/2019/10/06/1205627/hotsale1010_800x450.jpg',
           },
         ],
+      SHOP: [
+        {id: '0', name: 'So sánh giá'},
+        {id: '1', name: 'Thế giới di động' },
+        {id: '2', name: 'Shopee' },
+        {id: '3', name: 'Lazada' },
+        {id: '4', name: 'FPT Shop' },
+
+      ]
     }),
     components: {
       index
-    }
+    },
   }
 </script>
 <style lang="scss">
