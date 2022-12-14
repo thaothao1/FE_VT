@@ -9,7 +9,7 @@
             </v-sheet>
             <v-list shaped :disabled="check_labels">
                 <v-card class="mx-auto" max-width="250" tile>
-                    <v-list rounded>
+                    <v-list>
                         <v-col>
                             <v-icon>mdi-cellphone</v-icon>
                             <span class="name-category">{{ CATEGORY_PHONE.name }}</span>
@@ -28,7 +28,7 @@
                     </v-list>
                 </v-card>
                 <v-card class="mx-auto" max-width="250" tile>
-                    <v-list rounded>
+                    <v-list>
                         <v-col>
                             <v-icon>mdi-laptop</v-icon>
                             <span class="name-category">{{ CATEGORY_LAPTOP.name }}</span>
@@ -47,7 +47,7 @@
                 </v-card>
             </v-list>
         </v-navigation-drawer>
-        <div v-if="Object.keys(DATA) == 0" style="margin: auto; text-align: center; color: red; font-size: 30px; ">
+        <div v-if="(DATA.length == 0)" style="margin: auto; text-align: center; color: red; font-size: 30px; ">
             No Data!
         </div>
         <v-row>
@@ -63,9 +63,13 @@
                             <a :href=item.link>
                                 {{ item.name }}</a>
                         </v-toolbar-title>
-                        <span class="product-price">
+                        <span :class="{khac_shop: selectedTab, shop: !selectedTab}">
                             Giá: {{ item.price }}
                         </span><br />
+                        <span class="product-price-sale" v-if="selectedTab !== 0">
+                            Sale: {{ item.priceSale }}
+                        </span><br />
+                        <span  v-if="selectedTab == 0">View:{{item.view}}</span>
                         <div class="text-center" v-if="selectedTab !== 0">
                             <v-rating background-color="orange lighten-3" color="orange" size="16"
                                 v-if="(Object.keys(item) != 0)"
@@ -75,9 +79,9 @@
                     </div>
                 </v-sheet>
             </v-col>
-            <DetailProduct :idDetail="idDetail" :showDialog="showDialog" @close-dialog-detail="closeModel()" />
+            <DetailProduct :DATASS="DATA" :idDetail="idDetail" :showDialog="showDialog" @close-dialog-detail="closeModel()" />
         </v-row>
-        <div class="mt-10">
+        <div class="mt-10 mb-4">
             <Pagination v-if="Object.keys(DATA) != 0" :current="paramsPagination?.current" :total="paramsPagination?.total"
                 @pageUpdate="pageUpdate" />
         </div>
@@ -278,7 +282,15 @@ export default {
         margin: auto;
     }
 
-    .product-price {
+    .khac_shop {
+        font-size: 16px;
+        text-decoration: line-through;
+    }
+    .shop {
+        font-size: 20px;
+        color: red;
+    }
+    .product-price-sale {
         font-size: 20px;
         color: red;
     }
