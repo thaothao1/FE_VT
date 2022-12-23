@@ -7,7 +7,7 @@
                         alt=""></v-img></v-avatar>
                 <div>BestPrice</div>
             </v-sheet>
-            <v-list shaped :disabled="check_labels">
+            <v-list shaped >
                 <v-card class="mx-auto" max-width="250" tile>
                     <v-list>
                         <v-col>
@@ -60,7 +60,7 @@
                             </v-col>
                         </span>
                         <v-toolbar-title class="product-name">
-                            <a :href=item.link>
+                            <a target="_blank" :href=item.link>
                                 {{ item.name }}</a>
                         </v-toolbar-title>
                         <span :class="{khac_shop: selectedTab, shop: !selectedTab}">
@@ -73,7 +73,7 @@
                         <div class="text-center" v-if="selectedTab !== 0">
                             <v-rating background-color="orange lighten-3" color="orange" size="16"
                                 v-if="(Object.keys(item) != 0)"
-                                :value="item.rating">
+                                :value="convertInt(item.rating)">
                             </v-rating>
                         </div>
                     </div>
@@ -92,6 +92,8 @@ import axios from 'axios';
 import DetailProduct from './DetailProduct.vue';
 import Pagination from './Pagination.vue';
 import Loading from './Loading.vue'
+
+
 export default {
     data() {
         return {
@@ -166,6 +168,9 @@ export default {
         }
     },
     methods: {
+        convertInt(item){
+            return Number(item);
+        },
         async getDataAllShop() {
             let response = await axios.get(`http://103.150.124.193:8000/api/api/allShowProduct?size=20&page=${this.paramsPagination.current}`);
             this.DATA = response.data.data.data.data;
@@ -174,7 +179,7 @@ export default {
             this.isLoading = false;
         },
         async getDataTGDD() {
-            let response = await axios.get(`http://103.150.124.193:8000/api/api/allProduct?size=20&page=${this.paramsPagination.current}&shop=3`);
+            let response = await axios.get(`http://103.150.124.193:8000/api/api/allProduct?size=20&page=${this.paramsPagination.current}&shop=4`);
             this.DATA = response.data.data.product.data;
             this.paramsPagination.total = response.data.data.product.total / response.data.data.product.count;
             this.paramsPagination.total = Math.round(this.paramsPagination.total);
@@ -182,21 +187,21 @@ export default {
             
         },
         async getDataSHOPEE() {
-            let response = await axios.get(`http://103.150.124.193:8000/api/api/allProduct?size=20&page=${this.paramsPagination.current}&shop=1`);
-            this.DATA = response.data.data.product.data;
-            this.paramsPagination.total = response.data.data.product.total / response.data.data.product.count;
-            this.paramsPagination.total = Math.round(this.paramsPagination.total);
-            this.isLoading = false;
-        },
-        async getDataLAZADA() {
             let response = await axios.get(`http://103.150.124.193:8000/api/api/allProduct?size=20&page=${this.paramsPagination.current}&shop=2`);
             this.DATA = response.data.data.product.data;
             this.paramsPagination.total = response.data.data.product.total / response.data.data.product.count;
             this.paramsPagination.total = Math.round(this.paramsPagination.total);
             this.isLoading = false;
         },
+        async getDataLAZADA() {
+            let response = await axios.get(`http://103.150.124.193:8000/api/api/allProduct?size=20&page=${this.paramsPagination.current}&shop=1`);
+            this.DATA = response.data.data.product.data;
+            this.paramsPagination.total = response.data.data.product.total / response.data.data.product.count;
+            this.paramsPagination.total = Math.round(this.paramsPagination.total);
+            this.isLoading = false;
+        },
         async getDatFPT() {
-            let response = await axios.get(`http://103.150.124.193:8000/api/api/allProduct?size=20&page=${this.paramsPagination.current}&shop=4`);
+            let response = await axios.get(`http://103.150.124.193:8000/api/api/allProduct?size=20&page=${this.paramsPagination.current}&shop=3`);
             this.DATA = response.data.data.product.data;
             this.paramsPagination.total = response.data.data.product.total / response.data.data.product.count;
             this.paramsPagination.total = Math.round(this.paramsPagination.total);

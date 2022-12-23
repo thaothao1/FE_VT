@@ -47,7 +47,7 @@
                   Sale : {{ DATA_TGDD.priceSale }}
                 </v-col>
                 <v-col row="1" cols="12">
-                  <v-btn depressed color="primary" :href="DATA_TGDD.link" style="margin-left: 71px;">
+                  <v-btn target="_blank" depressed color="primary" :href="DATA_TGDD.link" style="margin-left: 71px;">
                     Xem ngay
                   </v-btn><br />
                 </v-col>
