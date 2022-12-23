@@ -1,10 +1,11 @@
 <template>
   <v-app id="inspire">
     <v-app-bar app class="navig-app">
-      <v-toolbar-title class="title-app">Web Compass</v-toolbar-title>
+      <v-col cols="1">
+        <v-img src="@/assets/log-web-1.png" alt=""></v-img>
+      </v-col>
       <v-tabs   
-      v-model="selectedTab"
-      background-color="primary"
+      v-model="selectedTab" 
       dark >
         <v-tab v-for="item in SHOP"
         :key="item.id">
@@ -12,9 +13,17 @@
       </v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+      <v-btn icon color="white" v-if="(selectedTab == 0)">
+          <v-icon>mdi-magnify</v-icon>
       </v-btn>
+      <v-text-field
+        v-if="(selectedTab == 0)"
+        v-model="search_name"
+        hide-details
+        single-line
+        color="white"
+        class="search-text"
+      ></v-text-field>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -29,8 +38,8 @@
         :src="item.src"
       ></v-carousel-item>
     </v-carousel>
-    <index :selectedTab="selectedTab" />
     <v-main>
+      <index :selectedTab="selectedTab" :search_name="search_name" />
       <v-footer
         dark
         padless
@@ -41,7 +50,7 @@
           tile
         >
           <v-card-title class="teal">
-            <strong class="subheading">Get connected with us on social networks!</strong>
+            <strong class="subheading">Đại học Kiến Trúc Đà Nẵng</strong>
   
             <v-spacer></v-spacer>
   
@@ -59,7 +68,7 @@
           </v-card-title>
   
           <v-card-text class="py-2 white--text text-center">
-            {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+            {{ new Date() }} — <strong>BestPrice</strong>
           </v-card-text>
         </v-card>
       </v-footer>
@@ -100,7 +109,8 @@ import index from '@/components/index.vue'
         {id: '3', name: 'Lazada' },
         {id: '4', name: 'FPT Shop' },
 
-      ]
+      ],
+      search_name: null
     }),
     components: {
       index
@@ -110,24 +120,27 @@ import index from '@/components/index.vue'
 <style lang="scss">
 #inspire {
   .navig-app {
-    background: rgb(211, 120, 16);
+    background: rgb(98, 98, 98);
     .title-app {
       width: 200px;
-      color: rgb(53, 14, 161);
+      color: white;
     }
   }
   .slider {
-    width: 70%;
+    width: 78%;
     margin-top: 100px;
     margin-top: 100px;
     margin-bottom: 20px;
     border-radius: 20px;
-    margin-left: 380px;
+    margin-left: 300px;
   }
   .container-content {
     width: 90%;
     border-radius: 10px;
     margin: auto;
+  }
+  .search-text {
+    width: 350px;
   }
 }
 
